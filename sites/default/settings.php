@@ -213,9 +213,9 @@
  * @endcode
  */
 $databases = array (
-  'default' => 
+  'default' =>
   array (
-    'default' => 
+    'default' =>
     array (
       'database' => 'borealis_portfolio',
       'username' => 'bborealisAdmin',
