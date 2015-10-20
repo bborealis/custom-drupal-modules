@@ -12,7 +12,7 @@ _A practice site with custom Drupal modules._
 * Clone repository
 * Start local server
 * Go to phpMyAdmin
-* Import borealis_portfolio database from sites/db-backup  
+* Import custom_drupal_modules database from sites/db-backup  
 * Add user in privileges:
 
 _user : bborealisAdmin_  
