@@ -5,7 +5,7 @@
 
 ## Description
 
-_A practice site with custome drupal modules._
+_A practice site with custom Drupal modules._
 
 ## Database Setup
 
