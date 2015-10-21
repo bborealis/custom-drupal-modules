@@ -1,0 +1,5 @@
+name = Queen Attack
+description = Takes as user input of two sets of coordinates representing the positions on a chess board of the queen and the piece that she is trying to take.
+package = Practice Modules
+core = 7.x
+files[] = queen_attack.module

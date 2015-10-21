@@ -1,0 +1,80 @@
+<?php
+function queen_attack_menu() {
+  $items = array();
+  $items['queen_attack'] = array(
+    'title' => 'Queen Attack!!!',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('queen_attack_form'),
+  );
+
+  $items['result_success'] = array(
+    'title' => 'Results',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'queen_attack_success',
+  );
+  return $items;
+}
+
+function queen_attack_form() {
+  $form = array();
+  $form['queen_x'] = array(
+    '#title' => "Queen 'X' coorrdinate",
+    '#type' => 'textfield',
+    '#description' => t("Enter a number from 1-8"),
+  );
+
+  $form['queen_y'] = array(
+    '#title' => "Queen 'Y' coorrdinate",
+    '#type' => 'textfield',
+    '#description' => t("Enter a number from 1-8"),
+  );
+
+  $form['pawn_x'] = array(
+    '#title' => "Pawn 'X' coorrdinate",
+    '#type' => 'textfield',
+    '#description' => t("Enter a number from 1-8"),
+  );
+
+  $form['pawn_y'] = array(
+    '#title' => "Pawn 'Y' coorrdinate",
+    '#type' => 'textfield',
+    '#description' => t("Enter a number from 1-8"),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Attack!!',
+  );
+
+  return $form;
+}
+
+function queen_attack_form_submit($form, &$form_state) {
+  $queen_x = $form_state['values']['queen_x'];
+  $queen_y = $form_state['values']['queen_y'];
+  $pawn_x = $form_state['values']['pawn_x'];
+  $pawn_y = $form_state['values']['pawn_y'];
+
+  if($queen_x >= 9 || $queen_y >= 9 || $queen_x < 1 || $queen_y < 1 || $pawn_x >= 9 || $pawn_y >= 9 || $pawn_x < 1 || $pawn_y < 1) {
+    $results = "Not a valid position.";
+  } elseif ($queen_x === $pawn_x && $queen_y === $pawn_x) {
+    $results = "Cannot occupy the same position.";
+  } elseif ($queen_x === $pawn_x || $queen_y === $pawn_y) {
+    $results = "The queen made a direct attack!! You're dead!!";
+  } elseif (abs($queen_x - $pawn_x) == abs($queen_y - $pawn_y)) {
+    $results = "The queen made a diaganal attack!! You're dead!!";
+  } else {
+    $results = "You shall live another day.";
+  }
+
+  $_SESSION['result_output'] = $results;
+  $form_state['redirect'] = 'result_success';
+}
+
+function queen_attack_success() {
+  $final_output = $_SESSION['result_output'];
+  return  "$final_output";
+}
