@@ -1,0 +1,5 @@
+name = Title case
+description = Takes lowercase letters and makes them uppercase
+package = Practice Modules
+core = 7.x
+files[] = title_case.module

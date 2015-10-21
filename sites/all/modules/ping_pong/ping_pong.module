@@ -49,18 +49,18 @@ function ping_pong_form_submit($form, &$form_state){
     } else {
       array_push($pingpong_output, $i);
     }
-}
+  }
 
   $_SESSION['ping_pong_output'] = $pingpong_output;
   $form_state['redirect'] = "ping_pong_success_page";
+}
+
+function ping_pong_success() {
+  $output = '<ul>';
+  foreach ($_SESSION['ping_pong_output'] as $value) {
+    $output = $output . '<li>' . $value . '</li>';
   }
 
-  function ping_pong_success() {
-    $output = '<ul>';
-    foreach ($_SESSION['ping_pong_output'] as $value) {
-      $output = $output . '<li>' . $value . '</li>';
-    }
-
-    $output = $output . '</ul>';
-    return "Hooray! $output";
-  }
+  $output = $output . '</ul>';
+  return "Hooray! $output";
+}
