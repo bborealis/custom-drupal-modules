@@ -217,7 +217,7 @@ $databases = array (
   array (
     'default' =>
     array (
-      'database' => 'borealis_portfolio',
+      'database' => 'custom_drupal_modules',
       'username' => 'bborealisAdmin',
       'password' => 'bborealisPass',
       'host' => '127.0.0.1',
