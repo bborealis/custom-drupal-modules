@@ -1,0 +1,64 @@
+<?php
+function state_poll_menu() {
+  $items = array();
+  $items['state_poll'] = array(
+    'title' => 'State Poll',
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('state_poll_form'),
+  );
+
+  $items['poll_results'] = array(
+    'title' => "Thank You!",
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'state_poll_results',
+  );
+  return $items;
+}
+
+function state_poll_form() {
+  $form = array();
+  $form['favorite_icecream'] = array(
+    '#title' => 'Enter your favorite Ice Cream.',
+    '#type' => 'textfield',
+    '#description' => t('Enter flavor'),
+    '#required' => TRUE,
+  );
+
+  $form['home_state'] = array(
+    '#title' => 'Enter your home state.',
+    '#type' => 'textfield',
+    '#description' => t('Enter state'),
+    '#required' => TRUE,
+    '#element_validate' => array('element_validate_state_name'),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Submit',
+  );
+
+  return $form;
+}
+
+function element_validate_state_name($element) {
+  // if ($element['#value'] )
+  // 
+}
+
+function state_poll_form_submit($form, &$form_state) {
+  $favorite_icecream = $form_state['values']['favorite_icecream'];
+  $home_state = $form_state['values']['home_state'];
+
+  $_SESSION['favorite_icecream'] = $favorite_icecream;
+  $_SESSION['home_state'] = $home_state;
+  $form_state['redirect'] = 'poll_results';
+}
+
+function state_poll_results() {
+  $favorite_icecream = $_SESSION['favorite_icecream'];
+  $home_state = $_SESSION['home_state'];
+  return "You are from $home_state and your favorite ice cream is $favorite_icecream";
+}

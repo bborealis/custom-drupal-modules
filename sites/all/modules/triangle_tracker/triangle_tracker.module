@@ -76,7 +76,6 @@ function triangle_tracker_form_submit($form, &$form_state) {
             (($side_one == $side_three) && ($side_one != $side_two)) ||
             (($side_two == $side_three) && ($side_two != $side_one))) {
     $results = "This is an isosceles triangle because two sides are equal.";
-  // } else ($side_one != $side_two && $side_one != $side_three) {
   } else {
     $results = "This is a scalene triangle because all sides are different.";
   }

@@ -1,0 +1,5 @@
+name = State Poll
+description = Polling module that asks for a persons favorite flavor of ice cream and what state they are from.
+package = Practice Modules
+core = 7.x
+files[] = state_poll
