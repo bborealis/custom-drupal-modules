@@ -83,17 +83,12 @@ function queen_attack_form_validate($form, &$form_state) {
   }
 }
 
-
 function queen_attack_form_submit($form, &$form_state) {
   $queen_x = $form_state['values']['queen_x'];
   $queen_y = $form_state['values']['queen_y'];
   $pawn_x = $form_state['values']['pawn_x'];
   $pawn_y = $form_state['values']['pawn_y'];
 
-  // if($queen_x >= 9 || $queen_y >= 9 || $queen_x < 1 || $queen_y < 1 || $pawn_x >= 9 || $pawn_y >= 9 || $pawn_x < 1 || $pawn_y < 1) {
-  //   $results = "Not a valid position.";
-  // } elseif ($queen_x === $pawn_x && $queen_y === $pawn_y) {
-  //   $results = "Cannot occupy the same position.";
   if ($queen_x === $pawn_x || $queen_y === $pawn_y) {
     $results = "The queen made a direct attack!! You're dead!!";
   } elseif (abs($queen_x - $pawn_x) == abs($queen_y - $pawn_y)) {
