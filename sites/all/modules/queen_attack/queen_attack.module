@@ -24,24 +24,35 @@ function queen_attack_form() {
     '#title' => "Queen 'X' coorrdinate",
     '#type' => 'textfield',
     '#description' => t("Enter a number from 1-8"),
+    '#element_validate' => array('element_validate_number', 'element_validate_integer_positive', 'element_validate_board_range'),
+    '#required' => TRUE,
   );
 
   $form['queen_y'] = array(
     '#title' => "Queen 'Y' coorrdinate",
     '#type' => 'textfield',
     '#description' => t("Enter a number from 1-8"),
+    '#element_validate' => array('element_validate_number', 'element_validate_integer_positive', 'element_validate_board_range'),
+    '#required' => TRUE,
+
   );
 
   $form['pawn_x'] = array(
     '#title' => "Pawn 'X' coorrdinate",
     '#type' => 'textfield',
     '#description' => t("Enter a number from 1-8"),
+    '#element_validate' => array('element_validate_number', 'element_validate_integer_positive', 'element_validate_board_range'),
+    '#required' => TRUE,
+
   );
 
   $form['pawn_y'] = array(
     '#title' => "Pawn 'Y' coorrdinate",
     '#type' => 'textfield',
     '#description' => t("Enter a number from 1-8"),
+    '#element_validate' => array('element_validate_number', 'element_validate_integer_positive', 'element_validate_board_range'),
+    '#required' => TRUE,
+
   );
 
   $form['submit'] = array(
@@ -52,17 +63,38 @@ function queen_attack_form() {
   return $form;
 }
 
+function element_validate_board_range($element) {
+  if ($element['#value'] >= 9) {
+    form_error($element, t('Must enter a number less then 9.'));
+  }
+}
+
+function queen_attack_form_validate($form, &$form_state) {
+  $queen_x = $form_state['values']['queen_x'];
+  $queen_y = $form_state['values']['queen_y'];
+  $pawn_x = $form_state['values']['pawn_x'];
+  $pawn_y = $form_state['values']['pawn_y'];
+
+  if ($queen_x === $pawn_x && $queen_y === $pawn_y) {
+    form_set_error('queen_x', 'Cannot occupy the same position.');
+    form_set_error('queen_y');
+    form_set_error('pawn_x');
+    form_set_error('pawn_y');
+  }
+}
+
+
 function queen_attack_form_submit($form, &$form_state) {
   $queen_x = $form_state['values']['queen_x'];
   $queen_y = $form_state['values']['queen_y'];
   $pawn_x = $form_state['values']['pawn_x'];
   $pawn_y = $form_state['values']['pawn_y'];
 
-  if($queen_x >= 9 || $queen_y >= 9 || $queen_x < 1 || $queen_y < 1 || $pawn_x >= 9 || $pawn_y >= 9 || $pawn_x < 1 || $pawn_y < 1) {
-    $results = "Not a valid position.";
-  } elseif ($queen_x === $pawn_x && $queen_y === $pawn_x) {
-    $results = "Cannot occupy the same position.";
-  } elseif ($queen_x === $pawn_x || $queen_y === $pawn_y) {
+  // if($queen_x >= 9 || $queen_y >= 9 || $queen_x < 1 || $queen_y < 1 || $pawn_x >= 9 || $pawn_y >= 9 || $pawn_x < 1 || $pawn_y < 1) {
+  //   $results = "Not a valid position.";
+  // } elseif ($queen_x === $pawn_x && $queen_y === $pawn_y) {
+  //   $results = "Cannot occupy the same position.";
+  if ($queen_x === $pawn_x || $queen_y === $pawn_y) {
     $results = "The queen made a direct attack!! You're dead!!";
   } elseif (abs($queen_x - $pawn_x) == abs($queen_y - $pawn_y)) {
     $results = "The queen made a diaganal attack!! You're dead!!";
