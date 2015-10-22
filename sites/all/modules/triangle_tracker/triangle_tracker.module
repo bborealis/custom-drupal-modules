@@ -1,0 +1,19 @@
+<?php
+function triangle_tracker_menu() {
+  $items = array();
+  $items['triangle_tracker'] = array(
+    'title' => "Triangle Tracker!!",
+    'type' => MENU_NORMAL_ITEM,
+    'access callback' => TRUE,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('triangle_tracker_form'),
+  );
+
+  $items['triangle_results'] = array(
+    'title' => "Results!?",
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'page callback' => 'triangle_tracker_results',
+  );
+  return $items;
+}

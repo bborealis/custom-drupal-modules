@@ -1,0 +1,5 @@
+name = Triangle tracker
+description = Module which allows users to enter three numbers representing the length of each of the three sides of a triangle and then displays a page that says what kind of triangle it is.
+package = Practice Modules
+core = 7.x
+files[] = triangle_tracker.module
