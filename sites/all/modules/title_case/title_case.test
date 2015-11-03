@@ -1,0 +1,76 @@
+<?php
+
+  class TitleCase extends DrupalUnitTestCase {
+
+    public static function getInfo() {
+      return array(
+        'name' => 'Title Case unit test',
+        'description' => 'Test that title_case module works properly.',
+        'group' => 'Epicodus unit test',
+      );
+    }
+
+    public function testTitleCase() {
+
+      //test description
+      $description = 'A title with a single letter is capitalized';
+      //arrange
+      $input = 'a';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'A';
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'A title with one word is capitalized';
+      //arrange
+      $input = 'thor';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'Thor';
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'A title with multiple words should be capitalized';
+      //arrange
+      $input = 'mad max';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'Mad Max';
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'Small words should not be capitalized.';
+      //arrange
+      $input = 'once upon a time';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'Once Upon a Time';
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'Titles that start with a small word should be capitalized.';
+      //arrange
+      $input = 'a clockwork orange';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'A Clockwork Orange';
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'Titles with a mix of small and big words should be put into title case.';
+      //arrange
+      $input = 'the lord of the rings';
+      //act
+      $result = make_title_case($input);
+      //assert
+      $expected_output = 'The Lord of the Rings';
+      $this->assertEqual($result, $expected_output, $description);
+    }
+
+  }

@@ -24,6 +24,7 @@ function title_case_form() {
     '#title' => 'Enter text',
     '#type' => 'textfield',
     '#description' => t('Please enter some text.'),
+    '#required' => TRUE,
   );
 
   $form['submit'] = array(
@@ -34,9 +35,27 @@ function title_case_form() {
   return $form;
 }
 
+function make_title_case($input) {
+  $ignore = ["a", "an", "the", "but", "or", "nor", "at", "by", "for", "from", "in", "into", "of", "on", "onto", "out", "up", "with", "to", "as"];
+
+  $input_exploded = explode(' ', strtolower($input));
+  $output_phrase = [];
+  foreach ($input_exploded as $index => $word) {
+    if ($index == 0 || !in_array($word, $ignore)) {
+      array_push($output_phrase, ucfirst($word));
+    } else {
+      array_push($output_phrase, $word);
+    }
+  }
+
+  return implode(' ', $output_phrase);
+
+
+}
+
 function title_case_form_submit($form, &$form_state) {
   $text_input = $form_state['values']['user_input'];
-  $text_output = strtoupper($text_input);
+  $text_output = make_title_case($text_input);
 
   $_SESSION['uppr_case_output'] = $text_output;
   $form_state['redirect'] = "success";
