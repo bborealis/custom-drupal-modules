@@ -36,22 +36,41 @@ function ping_pong_form() {
   return $form;
 }
 
+function play_ping_pong($input) {
+  $pingpong_result = array();
+
+  for($i=1; $i <= $input; $i++) {
+    if ($i % 3 == 0 && $i % 5 == 0) {
+      array_push($pingpong_result, "ping-pong");
+    } elseif ($i % 3 == 0) {
+      array_push($pingpong_result, "ping");
+    } elseif ($i % 5 == 0) {
+      array_push($pingpong_result, "pong");
+    } else {
+      array_push($pingpong_result, $i);
+    }
+  }
+
+  return $pingpong_result;
+}
+
 function ping_pong_form_submit($form, &$form_state){
 
   $count_max = $form_state['values'] ['count_goal'];
-  $pingpong_output = array();
-
-  for($i=1; $i <= $count_max; $i++) {
-    if ($i % 3 == 0 && $i % 5 == 0) {
-      array_push($pingpong_output, "ping-pong");
-    } elseif ($i % 3 == 0) {
-      array_push($pingpong_output, "ping");
-    } elseif ($i % 5 == 0) {
-      array_push($pingpong_output, "pong");
-    } else {
-      array_push($pingpong_output, $i);
-    }
-  }
+  $pingpong_output = play_ping_pong($count_max);
+  // $pingpong_output = array();
+  //
+  // for($i=1; $i <= $count_max; $i++) {
+  //   if ($i % 3 == 0 && $i % 5 == 0) {
+  //     array_push($pingpong_output, "ping-pong");
+  //   } elseif ($i % 3 == 0) {
+  //     array_push($pingpong_output, "ping");
+  //   } elseif ($i % 5 == 0) {
+  //     array_push($pingpong_output, "pong");
+  //   } else {
+  //     array_push($pingpong_output, $i);
+  //   }
+  // }
 
   $_SESSION['ping_pong_output'] = $pingpong_output;
   $form_state['redirect'] = "ping_pong_success_page";

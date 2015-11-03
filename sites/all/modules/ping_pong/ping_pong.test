@@ -1,0 +1,46 @@
+<?php
+
+  class PingPong extends DrupalUnitTestCase {
+    public static function getInfo() {
+      return array(
+        'name' => 'Ping Pong unit test',
+        'description' => 'Test that ping_pong module works properly.',
+        'group' => 'Epicodus unit test',
+      );
+    }
+
+    public function testPingPong() {
+
+      //test description
+      $description = 'A number that is a multiple of three returns PING.';
+      //arrange
+      $input = '3';
+      //act
+      $result = play_ping_pong($input);
+      //assert
+      $expected_output = ['1', '2', 'ping'];
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'A number that is a multiple of five returns PONG.';
+      //arrange
+      $input = '5';
+      //act
+      $result = play_ping_pong($input);
+      //assert
+      $expected_output = ['1', '2', 'ping', '4', 'pong'];
+      $this->assertEqual($result, $expected_output, $description);
+
+      //test description
+      $description = 'A number that is a multiple of three and five returns PING-PONG.';
+      //arrange
+      $input = '15';
+      //act
+      $result = play_ping_pong($input);
+      //assert
+      $expected_output = ['1', '2', 'ping', '4', 'pong', 'ping', '7', '8', 'ping', 'pong', '11', 'ping', '13', '14', 'ping-pong'];
+      $this->assertEqual($result, $expected_output, $description);
+
+    }
+
+}
